@@ -1,6 +1,6 @@
 # Top Weather Stories
 
-**Overview**
+**Overview** <br>
 A web scraper that finds the top 4 stories from weather.com
 
 **How to use**
