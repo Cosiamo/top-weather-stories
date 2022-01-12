@@ -21,7 +21,7 @@ function App() {
 
 	useEffect(() => {
 		console.log("calling backend");
-		callBackendApi().then((theData) => setData(theData));
+		callBackendApi().then((theData) => setData(theData)); // calling the fetch and setting the state
 	}, []);
 
 	return (
