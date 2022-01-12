@@ -20,7 +20,7 @@ function App() {
 	};
 
 	useEffect(() => {
-		console.log("calling backend");
+		console.log("Calling backend upon page load!");
 		callBackendApi().then((theData) => setData(theData)); // calling the fetch and setting the state
 	}, []);
 
@@ -28,8 +28,11 @@ function App() {
 		<div className="App">
 			{data
 				? data.map((item, idx) => (
-						<div key={idx}>
+						<div key={idx} className="video-container">
 							<p>{item.title}</p>
+							<video controls>
+								<source src={item.link} type="video/mp4" />
+							</video>
 						</div>
 				  ))
 				: null}

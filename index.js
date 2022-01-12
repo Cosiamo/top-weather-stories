@@ -2,8 +2,10 @@ const PORT = 8000;
 const axios = require("axios");
 const cheerio = require("cheerio");
 const express = require("express");
-
+const cors = require("cors");
 const app = express();
+
+app.use(cors()); // CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
 
 // Website you want gather info from
 const url = "https://weather.com";
