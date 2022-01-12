@@ -35,7 +35,7 @@ axios(url)
 			});
 		});
 		// calls the array and prints to the terminal
-		console.log(articles);
+		// console.log(articles);
 	})
 	.catch((err) => console.log(err));
 
