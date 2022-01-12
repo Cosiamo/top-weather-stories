@@ -40,7 +40,7 @@ axios(url)
 
 app.get("/express_backend", (request, response) => {
 	// sending the articles to the frontend using an app get method
-	response.send(JSON.stringify(articles));
+	response.send(JSON.stringify(articles)); //turning the data into a string
 });
 
 app.listen(PORT, () => console.log(`Server is running on PORT ${PORT}`));
