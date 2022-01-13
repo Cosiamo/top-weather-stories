@@ -13,6 +13,10 @@ function App() {
 			.catch((err) => console.error(err));
 	};
 
+	/*
+	Using useEffect hook call API upon page load with a an array 
+	as the second argument so it only renders once 
+	*/
 	useEffect(() => {
 		console.log("Calling backend upon page load!");
 		callBackendApi(); // calling the fetch and setting the state
