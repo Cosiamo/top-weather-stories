@@ -22,15 +22,7 @@ function App() {
 		callBackendApi(); // calling the fetch and setting the state
 	}, []);
 
-	return (
-		<div className="App">
-			{data && (
-				<>
-					<TopWeatherStories data={data} />
-				</>
-			)}
-		</div>
-	);
+	return <div className="App">{data && <TopWeatherStories data={data} />}</div>;
 }
 
 export default App;

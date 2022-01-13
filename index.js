@@ -30,7 +30,7 @@ const fetchNestedVideoSrc = async (link, number) => {
 	await page.goto(link);
 
 	// takes a screen shot of the current page and saves it to make sure we are viewing the correct page we want to scrape
-	await page.screenshot({ path: `story${number}.png` });
+	// await page.screenshot({ path: `story${number}.png` });
 
 	const pageData = await page.evaluate(() => {
 		return {
