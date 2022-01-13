@@ -5,8 +5,9 @@ A web scraper that finds the top 4 stories from weather.com
 
 ## Installation
 
-- Within main directory: npm install
+- Install server packages: npm install
 - Start backend: npm start
+
 - Open another terminal
 - Move into client directory: cd client
 - Install packages: npm install
