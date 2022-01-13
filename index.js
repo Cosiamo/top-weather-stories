@@ -21,7 +21,6 @@ const url = "https://weather.com";
 const htmlElement = ".ContentMedia--listItem--xVM3X";
 
 const articles = []; // intializing an empty array for the scraped articles to send to frontend
-let counter = 0; // Initializing a counter to set png screenshots of links
 
 const fetchNestedVideoSrc = async (link, number) => {
 	const browser = await pup.launch();
@@ -43,6 +42,7 @@ const fetchNestedVideoSrc = async (link, number) => {
 	await browser.close();
 };
 
+let counter = 0; // Initializing a counter to set png screenshots of links
 // Axios calls the http address from the url variable
 axios(url)
 	.then((response) => {
