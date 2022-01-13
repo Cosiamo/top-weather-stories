@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
+import TopWeatherStories from "./components/TopWeatherStories";
 
 function App() {
 	const [data, setData] = useState([]); // using useState hook to create / edit state and initializing it as an array
@@ -24,28 +25,13 @@ function App() {
 		callBackendApi().then((theData) => setData(theData)); // calling the fetch and setting the state
 	}, []);
 
-	const getVideoLink = (item) => {
-		const { link } = item;
-		return `${link}`;
-	};
-
-	const getVideoTitle = (item) => {
-		const { title } = item;
-		return `${title}`;
-	};
-
 	return (
 		<div className="App">
-			{data &&
-				data.map((item, idx) => (
-					<div key={idx} className="video-container">
-						<h3>{getVideoTitle(item)}</h3>
-						{/* <span>{item.link.toString()}</span> */}
-						<video disableRemotePlayback>
-							<source src={getVideoLink(item)} type="video/webm" />
-						</video>
-					</div>
-				))}
+			{data && (
+				<>
+					<TopWeatherStories data={data} />
+				</>
+			)}
 		</div>
 	);
 }

@@ -1,6 +1,7 @@
 const PORT = 8000;
 const axios = require("axios");
 const cheerio = require("cheerio");
+const pup = require("puppeteer");
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -36,20 +37,42 @@ axios(url)
 				.text()
 				.replace(/(Video)/, "");
 			const linkToVideo = url + content(this).attr("href");
+			const videoElement = ".jwplayer .jw-media video";
 
-			const fetchNestedVideoSrc = async (link) => {
-				const videoElement = ".jw-video jw-reset";
+			// const fetchNestedVideoSrc = async (link) => {
+			// 	const browser = await pup.launch();
 
-				await axios(link).then((response) => {
-					const pageHtml = response.data;
-					const $ = cheerio.load(pageHtml);
+			// 	const page = await browser.newPage();
+			// 	await page.goto(link);
 
-					let videoTag = $(videoElement);
-					console.log("HEYYY");
-				});
-			};
+			// 	await page.screenshot({ path: "image.png" });
 
-			fetchNestedVideoSrc(linkToVideo);
+			// 	const pageData = await page.evaluate(() => {
+			// 		return {
+			// 			html: document.documentElement.innerHTML,
+			// 		};
+			// 	});
+
+			// 	const $ = cheerio.load(pageData.html);
+			// 	const element = $(videoElement);
+			// 	console.log(element);
+
+			// 	await browser.close();
+			// };
+
+			// const fetchNestedVideoSrc = async (link) => {
+			// 	await axios(link).then((response) => {
+			// 		const videoPageHtml = response.data;
+			// 		const videoContent = cheerio.load(videoPageHtml);
+
+			// 		videoContent(videoElement, videoPageHtml).each(function () {
+			// 			console.log("HEYY!");
+			// 			let videoUrl = videoContent(this).attr("src");
+			// 			console.log(videoUrl);
+			// 		});
+			// 	});
+			// };
+			// fetchNestedVideoSrc(linkToVideo);
 
 			// fills the empty articles array
 			articles.push({
