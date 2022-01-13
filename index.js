@@ -33,11 +33,15 @@ const fetchNestedVideoSrc = async (link, number) => {
 
 	const pageData = await page.evaluate(() => {
 		return {
-			html: document.documentElement.querySelector(".jw-preview jw-reset"),
+			html: document.documentElement.innerHTML,
 		};
 	});
 
-	console.log(pageData.html);
+	const cl = ".jw-video jw-reset ";
+
+	const $ = cheerio.load(pageData.html);
+	console.log("PAGE!!!", $(cl, pageData.html).find("src"));
+
 	// closes the browser to use the next link that's retrieved
 	await browser.close();
 };
