@@ -21,6 +21,27 @@ const url = "https://weather.com";
 const htmlElement = ".ContentMedia--listItem--xVM3X";
 
 const articles = []; // intializing an empty array for the scraped articles to send to frontend
+let counter = 0; // Initializing a counter to set png screenshots of links
+
+const fetchNestedVideoSrc = async (link, number) => {
+	const browser = await pup.launch();
+
+	const page = await browser.newPage();
+	await page.goto(link);
+
+	// takes a screen shot of the current page and saves it to make sure we are viewing the correct page we want to scrape
+	await page.screenshot({ path: `story${number}.png` });
+
+	const pageData = await page.evaluate(() => {
+		return {
+			html: document.documentElement.querySelector(".jw-preview jw-reset"),
+		};
+	});
+
+	console.log(pageData.html);
+	// closes the browser to use the next link that's retrieved
+	await browser.close();
+};
 
 // Axios calls the http address from the url variable
 axios(url)
@@ -37,42 +58,9 @@ axios(url)
 				.text()
 				.replace(/(Video)/, "");
 			const linkToVideo = url + content(this).attr("href");
-			const videoElement = ".jwplayer .jw-media video";
+			counter++;
 
-			// const fetchNestedVideoSrc = async (link) => {
-			// 	const browser = await pup.launch();
-
-			// 	const page = await browser.newPage();
-			// 	await page.goto(link);
-
-			// 	await page.screenshot({ path: "image.png" });
-
-			// 	const pageData = await page.evaluate(() => {
-			// 		return {
-			// 			html: document.documentElement.innerHTML,
-			// 		};
-			// 	});
-
-			// 	const $ = cheerio.load(pageData.html);
-			// 	const element = $(videoElement);
-			// 	console.log(element);
-
-			// 	await browser.close();
-			// };
-
-			// const fetchNestedVideoSrc = async (link) => {
-			// 	await axios(link).then((response) => {
-			// 		const videoPageHtml = response.data;
-			// 		const videoContent = cheerio.load(videoPageHtml);
-
-			// 		videoContent(videoElement, videoPageHtml).each(function () {
-			// 			console.log("HEYY!");
-			// 			let videoUrl = videoContent(this).attr("src");
-			// 			console.log(videoUrl);
-			// 		});
-			// 	});
-			// };
-			// fetchNestedVideoSrc(linkToVideo);
+			fetchNestedVideoSrc(linkToVideo, counter);
 
 			// fills the empty articles array
 			articles.push({
