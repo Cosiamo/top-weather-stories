@@ -5,11 +5,18 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
-app.use(cors()); // CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
+// CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
+app.use(
+	cors({
+		origin: "http://localhost:8000",
+		credentials: true,
+	})
+);
 
 // Website you want gather info from
 const url = "https://weather.com";
-// The Class or ID name of the element you're targeting
+
+// The Class or ID name of the element(s) you're targeting
 const htmlElement = ".ContentMedia--listItem--xVM3X";
 
 const articles = []; // intializing an empty array for the scraped articles to send to frontend
@@ -19,6 +26,7 @@ axios(url)
 	.then((response) => {
 		// html variable records the data from the http response
 		const html = response.data;
+
 		// Cheerio picks out the HTML elements from the html variable
 		const content = cheerio.load(html);
 
@@ -27,15 +35,30 @@ axios(url)
 			const title = content(this)
 				.text()
 				.replace(/(Video)/, "");
-			const link = url + content(this).attr("href");
+			const linkToVideo = url + content(this).attr("href");
+
+			const fetchNestedVideoSrc = async (link) => {
+				const videoElement = ".jw-video jw-reset";
+
+				await axios(link).then((response) => {
+					const pageHtml = response.data;
+					const $ = cheerio.load(pageHtml);
+
+					let videoTag = $(videoElement);
+					console.log("HEYYY");
+				});
+			};
+
+			fetchNestedVideoSrc(linkToVideo);
+
 			// fills the empty articles array
 			articles.push({
 				title,
-				link,
+				link: linkToVideo,
 			});
 		});
 		// calls the array and prints to the terminal
-		// console.log(articles);
+		// console.log("Articles", articles);
 	})
 	.catch((err) => console.log(err));
 
