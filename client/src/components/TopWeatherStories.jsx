@@ -1,8 +1,9 @@
 import React from "react";
 
 const TopWeatherStories = ({ data }) => {
-	// destructuring the props^
+	// destructuring the props ^ that are passed down.
 
+	// using a function to destructure the items passed into it
 	const getVideoLink = (item) => {
 		const { link } = item;
 		return `${link}`;
