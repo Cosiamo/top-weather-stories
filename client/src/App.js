@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./App.css";
 import TopWeatherStories from "./components/TopWeatherStories";
+import "./App.css";
 
 function App() {
 	const [data, setData] = useState([]); // using useState hook to create / edit state and initializing it as an array
